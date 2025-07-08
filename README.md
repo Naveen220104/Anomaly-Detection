@@ -79,7 +79,7 @@ To build an intelligent system that detects unusual patterns in cybersecurity da
 ## 👨‍💻 Author
 
 **Naveenkumar**  
-Final Year B.Tech (Cybersecurity)  
+Final Year B.Tech (Information Technology)  
 Dhanalakshmi Srinivasan College of Engineering and Technology  
 GitHub: [@Naveen220104](https://github.com/Naveen220104)
 
