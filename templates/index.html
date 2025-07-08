@@ -1,0 +1,242 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anomaly Detection</title>
+    <script src="https://kit.fontawesome.com/47101d2035.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #7be0e4, #51dfa3, #05c1f0, #625863);
+            background-size: 400% 400%;
+            animation: gradientBG 5s ease infinite;
+        }
+
+      
+
+        .navbar {
+                background-color: #000 !important;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar a,
+            .navbar-brand {
+                color: #fff !important;
+                text-transform: uppercase;
+                font-size: large;
+                font-weight: bold;
+            }
+
+            .navbar a:hover,
+            .navbar-brand:hover {
+                color: #ccc !important;
+                text-decoration: none;
+            }
+
+        .title-border {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 15px;
+            border-radius: 10px;
+            border: 3px solid #e74c3c;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 50px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+       
+
+        h1 {
+            color: #131414;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-size: x-large;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            padding-left: 12px;
+            height: 45px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: #e74c3c;
+            border: none;
+            font-size: 18px;
+            padding: 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.5);
+        }
+        a{
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand ml-3" href="{% url 'home' %}">Anomaly Detection</a>
+        <div class="ml-auto mr-3">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="title">
+        <div class="row justify-content-center">
+            <div class="col-md-6 title-border text-center mt-4">
+                <h1>Anomaly Detection using machine learning</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10 form-container">
+                <form action="result">
+                    {% csrf_token %}
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Protocol Type:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="protocol_type" required>
+                                <option value="">Select Protocol Type</option>
+                                <option value="tcp">TCP</option>
+                                <option value="udp">UDP</option>
+                                <option value="icmp">ICMP</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Service:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Service" name="service" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Flag:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="flag" required>
+                                <option value="">Select Flag</option>
+                                <option value="SF">SF</option>
+                                <option value="S0">S0</option>
+                                <option value="REJ">REJ</option>
+                                <option value="RSTR">RSTR</option>
+                                <option value="RSTO">RSTO</option>
+                                <option value="S1">S1</option>
+                                <option value="SH">SH</option>
+                                <option value="RSTOS0">RSTOS0</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                                <option value="OTH">OTH</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Source Bytes:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Source Bytes" name="src_bytes" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Is Host Login:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="is_host_login" required>
+                                <option value="">Select</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Is Guest Login:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="is_guest_login" required>
+                                <option value="">Select</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Count:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Count" name="count" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Service Count:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Service Count" name="srv_count" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Rerror Rate:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Rerror Rate" name="rerror_rate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Service Rerror Rate:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Service Rerror Rate" name="srv_rerror_rate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-label">Same Service Rate:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Enter Same Service Rate" name="same_srv_rate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Predict</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

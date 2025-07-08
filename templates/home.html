@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <title>Anomaly Detection</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      background-size: 300% 300%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .jumbotron {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 50px 30px;
+      border-radius: 15px;
+      margin-top: 30px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: 0.4s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .section-title {
+      font-weight: bold;
+      text-align: center;
+      margin: 50px 0 20px;
+      text-transform: uppercase;
+    }
+
+    .description-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 10px;
+      margin: 30px auto;
+      width: 80%;
+    }
+
+    .btn-custom {
+      background-color: #f39c12;
+      border: none;
+      color: black;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-custom:hover {
+      background-color: #d35400;
+      color: white;
+    }
+
+    .feature-list li {
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1 class="display-4">Anomaly Detection System</h1>
+      <p class="lead">Identify unusual patterns in your data with our intelligent anomaly detection platform.</p>
+    </div>
+
+    <!-- Description -->
+    <div class="description-box text-center">
+      <h3>Project Overview</h3>
+      <p>
+        This project leverages machine learning algorithms to detect anomalies in real-time data streams or historical datasets.
+        It can be used in cybersecurity, healthcare, banking, manufacturing, and many other domains to flag unusual behavior or outliers.
+      </p>
+    </div>
+
+    <!-- Features -->
+    <div class="text-center">
+      <h3 class="section-title">Key Features</h3>
+    </div>
+    <div class="row justify-content-center text-left text-white mb-5">
+      <div class="col-md-5">
+        <ul class="feature-list">
+          <li>⚙️ Real-time anomaly monitoring</li>
+          <li>📊 Visual representation of anomalies</li>
+          <li>🔐 Secured and scalable architecture</li>
+          <li>📈 Machine learning models (Isolation Forest, LSTM, Autoencoder)</li>
+        </ul>
+      </div>
+      <div class="col-md-5">
+        <ul class="feature-list">
+          <li>🔍 High detection accuracy</li>
+          <li>💬 Alerting and reporting system</li>
+          <li>🧠 Adaptive learning mechanism</li>
+          <li>🌐 Web-based UI with interactive dashboards</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Card Section -->
+    <div class="text-center">
+      <h3 class="section-title">Try the Demo</h3>
+    </div>
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-4">
+        <a href="{% url 'index' %}" style="text-decoration: none;">
+          <div class="card">
+            <img src="{% static 'images/cr.jpeg' %}" class="card-img-top" alt="Anomaly Detection">
+            <div class="card-body text-center text-dark">
+              <h5 class="card-title">Launch Detection Module</h5>
+              <!-- <p class="card-text">Start analyzing your data with our anomaly detection engine.</p> -->
+              <button class="btn btn-custom">Go</button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+{% endblock content %}
